@@ -9,6 +9,7 @@
   "dependencies": {
     "glob": "^6.0.4",
     "rollup": "^0.25.2",
+    "rollup-plugin-commonjs": "^2.2.1",
     "rollup-plugin-memory": "^1.0.0"
   },
   "devDependencies": {

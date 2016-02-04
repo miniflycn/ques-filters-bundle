@@ -10,6 +10,8 @@ describe('test', function () {
 			script.runInContext(context);
 			_module.exports.a.hello('world').should.equal('world');
 			_module.exports.a.world(123).should.equal(124);
+			_module.exports.b.hello('world').should.equal('world');
+			_module.exports.b.world(123).should.equal(124);
 			done();
 		});
 	});

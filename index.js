@@ -1,5 +1,6 @@
 var rollup = require('rollup'),
 	memory = require('rollup-plugin-memory'),
+	commonjs = require('rollup-plugin-commonjs'),
 	glob = require('glob');
 
 /**
@@ -24,8 +25,10 @@ function formatName(name) {
  */
 module.exports = function (options, cb) {
 	options.path = options.path || './components/';
+	options.format = options.format || 'cjs';
 	var path = options.path,
 		pathLength,
+		plugins = [],
 		input = '',
 		mains;
 	// fixed path
@@ -39,13 +42,13 @@ module.exports = function (options, cb) {
 		input += 'export var ' + formatName(mains[i].slice(pathLength, -8)) + ' = tmp' + i + ';\n';
 	}
 
+	plugins.push(memory({
+		contents: input
+	}), commonjs());
+
 	rollup.rollup({
 		entry: 'main.js',
-		plugins: [
-			memory({
-				contents: input
-			})
-		]
+		plugins: plugins
 	}).then(function (bundle) {
 		var result = bundle.generate({
 			format: 'cjs'
