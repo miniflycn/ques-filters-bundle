@@ -22,6 +22,7 @@ function formatName(name) {
 /**
  * options {Object}
  * options.path {String} components path, default is './components/'
+ * optoins.format {String} format type, default is 'cjs', could be 'amd', 'cjs', 'es6', 'iife', 'umd'
  */
 module.exports = function (options, cb) {
 	options.path = options.path || './components/';
@@ -51,7 +52,7 @@ module.exports = function (options, cb) {
 		plugins: plugins
 	}).then(function (bundle) {
 		var result = bundle.generate({
-			format: 'cjs'
+			format: options.format
 		});
 
 		cb(result.code);
